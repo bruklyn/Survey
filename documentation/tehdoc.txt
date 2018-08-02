@@ -1,0 +1,74 @@
+web lapas tehniskās prasības:
+MySql:  5.6
+PHP: 5.5
+
+Datu bāzes pieslēgums norādās: include/DB.php failā
+--------------------------------------
+
+Vispareja loģika:
+
+lietotājs ievada savu vārdu
+lietotājs izvēlās testu
+    1. Ar javascript tiek pārbaudīti lauku dati, un tiek parādīti paziņojumi, ja kāds no laukiem nav aizpildīts vai izvēlēts
+
+Poga "Sākt testu" nosūta formas datus "survey.php" failamm, kur ar PHP funkciju palīdzību tiek uzbūvēta testa izpildes lapa (visi testa jautājum tiek ielādēti pie, lapas ielādes,
+ar javascript palīdzību uz ekrāna tiek atveidots tikai viens jautājums, kurš pēc atbildes sniegšanas tiek paslēpts.)
+
+Testa jautājuma uzbūve: jautājuma dati tiek glabatā jautājumu objektā kurš ir saņemts no datubāzes, nepareizās atbildes tiek saņemtas no atbilžu tabulas ņemot vētā testa kategoriju.
+Atbilžu bloks tiek automātiski ģenerēts, ņemot vērā jautajuma objekta iespējamo atbilžu skaitu
+
+Pēc visu testa jautājumu atbildes sniegšanas ar pogas "Uzzināt rezultātu" palūdzību dati tiek nosūtīti uz "process_data.php" failu kur dati par atbildēm tiek apastrādāti un nosūtīti datubāzi un rezultātu lapu
+
+Kļūdu gadījumā Lietotājs tiek nosūtīts uz error.php lapu
+-------------------------------------------
+
+Datu bāze:
+datu bāze sastāv no 6 tabulām.
+Survey_surveys - testu tabula, katru testu nepieciešams piesaistīt kādai no kategorijām, sasaiste notiek ar kategorijas identifikatoru (id_category)
+survey_categories - testu kategoriju tabula
+survey_questions - testu jautājumu tabula, katrs jautājums piesaistās pie testa izmantojot test identifikatoru (id_survey)
+survey_answers - potenciālo atbilžu tabula, katra atbilde tiek piesaistīta kādai no kategorijām izmantojot (category_id)
+survey_participants - tabula lietotāja datu saglabāšanai
+survey_results - glabā katras testa atbildes rezultātu izmantojot tabulu identifikatorus
+
+Tabulu struktūra
+1. Survey_surveys
+  `id_survey` int(11) NOT NULL AUTO_INCREMENT,
+  `id_category` int(11) NOT NULL,
+  `survey_name` varchar(45) NOT NULL,
+  `survey_description` varchar(250) DEFAULT NULL,
+  `survey_active` tinyint(1) NOT NULL DEFAULT '0',
+  `survey_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `survey_blocked` datetime DEFAULT NULL,
+
+2. survey_categories
+   `id_survey_categories` int(11) NOT NULL AUTO_INCREMENT,
+   `categorie_name` varchar(45) CHARACTER SET utf8mb4 NOT NULL,
+   `categorie_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+3. survey_questions
+  `id_survey_questions` int(11) NOT NULL AUTO_INCREMENT,
+  `survey_id` int(11) NOT NULL,
+  `question` varchar(500) CHARACTER SET utf8mb4 NOT NULL,
+  `answer` varchar(45) CHARACTER SET utf8mb4 NOT NULL,
+  `wrong_answer_count` int(11) NOT NULL,
+  `media` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+
+4. survey_answers
+  `id_answers` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `answer` varchar(45) CHARACTER SET utf8mb4 NOT NULL,
+
+5. survey_participants
+  `id_participant` int(11) NOT NULL AUTO_INCREMENT,
+  `participant_name` varchar(45) CHARACTER SET utf8mb4 NOT NULL,
+  `unique_id` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+
+6. survey_results
+  `id_survey_results` int(11) NOT NULL AUTO_INCREMENT,
+  `participant_id` int(11) NOT NULL,
+  `survey_id` int(11) NOT NULL,
+  `survey_question_id` int(11) NOT NULL,
+  `answer_ok` tinyint(1) NOT NULL,
+  `wrong_answer_id` int(11) DEFAULT NULL,
+

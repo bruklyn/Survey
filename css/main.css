@@ -1,0 +1,171 @@
+* {
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;;
+}
+
+.center{
+    text-align: center;
+}
+
+.large{
+    font-size: 34px;
+}
+.medium {
+    font-size: 26px;
+}
+
+.small{
+    font-size: 18px;
+}
+
+@media (max-device-width: 320px) {
+    .large{
+        font-size: 40px;
+    }
+    .medium {
+        font-size: 30px;
+    }
+
+    .small{
+        font-size: 20px;
+    }
+}
+
+.disabled{
+    display: none;
+}
+
+.enabled{
+    display: block;
+}
+
+/*
+index page start
+*/
+
+#survey_selection_page select, input {
+    min-width: 50%;
+    display: block;
+    padding: 6px 4px;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing:content-box;
+    box-sizing:content-box;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 30px;
+}
+
+@media (max-device-width: 320px) {
+    #survey_selection_page select, input {
+        min-width: 90%;
+        min-height: 60px;
+    }
+    #system_messages {
+        width: 90%;
+    }
+}
+
+#survey_selection_page h2{
+    text-align: center;
+}
+
+#system_messages {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    background-color: #f3c1c16b;
+    padding: 30px;
+}
+/**
+index page end
+ */
+
+/**
+Survey page start
+ */
+.question_block{
+    display: block;
+    margin: 30px;
+}
+.answer_block {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/*
+Buttons
+ */
+.button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+.orange {
+    border: solid 1px #884b03;
+    background: #f47c20;
+}
+.orange:hover:enabled {
+    background: #faa51a;
+}
+.orange:active:enabled {
+    color: #fcd3a5;
+    background: #faa51a;
+}
+.orange:disabled{
+    color: #333333;
+    background: #999999;
+    border:solid 1px #000000; ;
+}
+
+.blue {
+    border: solid 1px #0D0CDA;
+    background: #3231f33d;
+}
+.blue:hover {
+    background: #0D0CDA;
+}
+.blue:active {
+    color: #B9DCFF;
+    background: #0D0CDA;
+}
+
+.active{
+    color: #B9DCFF;
+    background: #0D0CDA;
+}
+.answer {
+    display: inline-block;
+    width: 33%;
+    margin: 10px;
+    padding: 10px;
+}
+
+@media (max-device-width: 320px) {
+    .answer {
+        display: inline-block;
+        width: 90%;
+        margin: 10px;
+        padding: 10px;
+    }
+}
+
+#surveyProgress {
+    width: 70%;
+    background-color: #dadada;
+    margin: auto;
+}
+#progressBar {
+    width: 0;
+    height: 30px;
+    background-color: #6ebd6e;
+}
+
+.survey_complete{
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
